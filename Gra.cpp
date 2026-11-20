@@ -82,6 +82,12 @@ void Gra::sprawdzKolizjeZKlockami() {
 
             if (klocki[indeks] -> czyZniszczony()) {
                 punkty += klocki[indeks] -> getPunkty();
+
+                if (dynamic_cast<KlocekUlepszony*>(klocki[indeks]) != nullptr) {
+                    if (rand() % 2 == 0) {
+                        platforma += 4;
+                    }
+                }
             }
 
             break;
@@ -174,7 +180,7 @@ void Gra::rysujPlansze() const {
         buforPlanszy[kulkaY][kulkaX] = 'O';
     }
 
-    cout << "Poziom: " << aktualnyPoziom << "/" << maksymalnyPoziom << "   Punkty: " << punkty << "   Zycia: " << zycia << "\n";
+    cout << *this << "\n";
     for(int pozycjaY = 0; pozycjaY < wysokoscPlanszy; pozycjaY++) {
         cout << buforPlanszy[pozycjaY] << "\n";
     }
@@ -198,4 +204,12 @@ int Gra::getZycia() const {
 
 int Gra::getAktualnyPoziom() const {
     return aktualnyPoziom;
+}
+
+ostream& operator << (ostream& os, const Gra& gra) {
+    os << "Poziom: " << gra.aktualnyPoziom << "/" << gra.maksymalnyPoziom
+       << "   Punkty: " << gra.punkty
+       << "   Zycia: " << gra.zycia
+       << "   Paletka: " << gra.platforma.getSzerokoscPlatformy() << "   ";
+    return os;
 }

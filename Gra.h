@@ -2,6 +2,7 @@
 #define GRA_H
 
 #include <vector>
+#include <iostream>
 #include "Platforma.h"
 #include "Kulka.h"
 #include "Klocek.h"
@@ -41,6 +42,8 @@ public:
     int getPunkty() const;
     int getZycia() const;
     int getAktualnyPoziom() const;
+
+    friend ostream& operator << (ostream& os, const Gra& gra);
 };
 
 #endif

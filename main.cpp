@@ -74,6 +74,7 @@ int main() {
                 } else {
                     cout << "KONIEC GRY! Straciles wszystkie zycia. Wynik: " << gra.getPunkty() << "   \n";
                 }
+                cout << "Podsumowanie: " << gra << "\n";
                 cout << "Nacisnij R, aby zagrac ponownie, lub Q, aby wyjsc.          \n";
             }
 

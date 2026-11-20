@@ -1,14 +1,15 @@
 #include "Platforma.h"
 
-Platforma::Platforma(): pozycjaX(25), pozycjaY(22), szerokoscPlatformy(11), predkoscRuchu(3), kierunekRuchu(0), szerokoscPlanszy(60), wysokoscPlanszy(25) {
+Platforma::Platforma(): pozycjaX(25), pozycjaY(22), szerokoscPlatformy(11), bazowaSzerokosc(11), predkoscRuchu(3), kierunekRuchu(0), szerokoscPlanszy(60), wysokoscPlanszy(25) {
     zresetujPozycje();
 }
 
-Platforma::Platforma(int szerokoscPlanszy, int wysokoscPlanszy, int szerokoscPlatformy): pozycjaX(0), pozycjaY(0), szerokoscPlatformy(szerokoscPlatformy), predkoscRuchu(3), kierunekRuchu(0), szerokoscPlanszy(szerokoscPlanszy), wysokoscPlanszy(wysokoscPlanszy) {
+Platforma::Platforma(int szerokoscPlanszy, int wysokoscPlanszy, int szerokoscPlatformy): pozycjaX(0), pozycjaY(0), szerokoscPlatformy(szerokoscPlatformy), bazowaSzerokosc(szerokoscPlatformy), predkoscRuchu(3), kierunekRuchu(0), szerokoscPlanszy(szerokoscPlanszy), wysokoscPlanszy(wysokoscPlanszy) {
     zresetujPozycje();
 }
 
 void Platforma::zresetujPozycje() {
+    szerokoscPlatformy = bazowaSzerokosc;
     pozycjaX = (szerokoscPlanszy - szerokoscPlatformy) / 2;
     pozycjaY = wysokoscPlanszy - 2;
     kierunekRuchu = 0;
@@ -29,6 +30,25 @@ void Platforma::ruszaj(int kierunek) {
 
 void Platforma::aktualizuj() {
     kierunekRuchu = 0;
+}
+
+Platforma& Platforma::operator += (int zmianaSzerokosci) {
+    int maksymalnaSzerokosc = 23;
+    szerokoscPlatformy += zmianaSzerokosci;
+
+    if (szerokoscPlatformy > maksymalnaSzerokosc) {
+        szerokoscPlatformy = maksymalnaSzerokosc;
+    }
+
+    if (szerokoscPlatformy < 5) {
+        szerokoscPlatformy = 5;
+    }
+
+    if (pozycjaX + szerokoscPlatformy >= szerokoscPlanszy - 1) {
+        pozycjaX = szerokoscPlanszy - 1 - szerokoscPlatformy;
+    }
+
+    return *this;
 }
 
 int Platforma::getPozycjaX() const {

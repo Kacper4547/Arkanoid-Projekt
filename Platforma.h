@@ -10,6 +10,7 @@ private:
     int pozycjaX;
     int pozycjaY;
     int szerokoscPlatformy;
+    int bazowaSzerokosc;
     int predkoscRuchu;
     int kierunekRuchu;
     int szerokoscPlanszy;
@@ -22,6 +23,8 @@ public:
     void zresetujPozycje();
     void ruszaj(int kierunek);
     void aktualizuj();
+
+    Platforma& operator += (int zmianaSzerokosci);
 
     int getPozycjaX() const;
     int getPozycjaY() const;
